@@ -12,3 +12,11 @@
       (sum_of_squares maxA maxB)
   )
 )
+
+(define (task3_cond x y z)
+  (cond ((> x y) (sum_of_squares x (if (> y z) y z)))
+        ((> x z) (sum_of_squares x (if (> y z) y z)))
+        ((> y z) (sum_of_squares y (if (> x z) x z)))
+        (else    (sum_of_squares z (if (> x y) x y)))
+  )
+)
