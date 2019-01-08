@@ -14,9 +14,8 @@
 )
 
 (define (task3_cond x y z)
-  (cond ((> x y) (sum_of_squares x (if (> y z) y z)))
-        ((> x z) (sum_of_squares x (if (> y z) y z)))
-        ((> y z) (sum_of_squares y (if (> x z) x z)))
-        (else    (sum_of_squares z (if (> x y) x y)))
+  (cond ((or (> x y) (> x z)) (sum_of_squares x (max y z)))
+        ((> y z) (sum_of_squares y (max x z)))
+        (else    (sum_of_squares z (max x y)))
   )
 )
