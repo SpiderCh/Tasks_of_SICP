@@ -1,0 +1,6 @@
+(define (get-element r c)
+  (cond ((or (= c 1) (= c r) (= r 1)) 1)
+        ((or (< r 1) (< c 1) (> r c)) 0)
+        (else (+ (get-element (- r 1) (- c 1)) (get-element (- r 1) c)))
+  )
+)
