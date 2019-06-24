@@ -3,20 +3,22 @@
     ((or (= row col) (= col 1))
       1
     )
-    ; ((= row 0) 0)
     (else
       (+ (pascal_element (- row 1) (- col 1)) (pascal_element (- row 1) col))
     )
   )
 )
 
-(define (pascal_iter row col)
+(define (pascal_iter row col line)
   (cond
-    ((= row col) (cons 1 '()))
-    (else (append (cons (pascal_element row col) '()) (pascal_iter row (+ col 1))))
+    ((= row col) (append line (cons 1 '())))
+    (else (pascal_iter row (+ col 1) (append line (cons (pascal_element row col) '()))))
   )
 )
 
 (define (pascal_line row)
-  (pascal_iter row 1)
+  (cond
+    ((= row 1) (cons 1 '()))
+    (else (pascal_iter row 2 (cons 1 '())))
+  )
 )
