@@ -18,6 +18,7 @@
 
 (define (pascal_line row)
   (cond
+    ((< row 1) (display "Row must be started from 1"))
     ((= row 1) (cons 1 '()))
     (else (pascal_iter row 2 (cons 1 '())))
   )
