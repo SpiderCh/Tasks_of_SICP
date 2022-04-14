@@ -75,4 +75,47 @@ Below is a sequence of expressions. What is the result printed by the interprete
    (+ a 1))
 ;; Answer: 16
 ```
+  
+### Exercise 1.2  
+Translate the following expression into prefix form: ![](assets/ch1-Z-G-3.gif)  
+```scheme
+;; Answer
+(/ (+ 5 4
+        (- 2 
+           (- 3 
+              (+ 6 
+                 (/ 4 5)
+              )
+           )
+        )
+   )
+   (* 3 
+      (- 6 2)
+      (- 2 7)
+   )
+)
+```  
+### Exercise 1.3  
+Define a procedure that takes three numbers as arguments and returns the sum of the squares of the two larger numbers.  
+```scheme
+(define (sum_of_squares x y)
+    (define (square x) (* x x))
+    (+ (square x) (square y))
+)
 
+(define (compare x y z op)
+    (cond ((and (op x y) (op x z)) x)
+          ((and (op y x) (op y z)) y)
+          (else z)
+    )
+)
+
+(define (task3 x y z)
+    (define (max x y z) (compare x y z >))
+    (define (min x y z) (compare x y z <))
+    (define sum (+ x y z))
+    (define m (- sum (max x y z)))
+    (sum_of_squares (- sum m) (- m (min x y z)))
+)
+
+```
