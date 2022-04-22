@@ -146,6 +146,39 @@ Then he evaluates the expression
 What behavior will Ben observe with an interpreter that uses applicative-order evaluation? What behavior will he observe with an interpreter that uses normal-order evaluation? Explain your answer. (Assume that the evaluation rule for the special form if is the same whether the interpreter is using normal or applicative order: The predicate expression is evaluated first, and the result determines whether to evaluate the consequent or the alternative expression.)  
 
 Answer:  
-  * [ ] If interpreter uses **application order evalution** we will see infinite loop, because of all arguments must be evaluated before function call
+If interpreter uses **application order evalution** we will see infinite loop, because of all arguments must be evaluated before function call
 and we cannot evaluate `y`. To evaluate `y` we must evaluate value of `p`, but `p` defines through `p`.  
 If interpreter uses **normal order evaluation**, test will return `0`, because we do not need to evaluate `y` argument.  
+
+### Exercise 1.6  
+Alyssa P. Hacker doesn't see why if needs to be provided as a special form. "Why can't I just define it as an ordinary procedure in terms of cond?" she asks. Alyssa's friend Eva Lu Ator claims this can indeed be done, and she defines a new version of if:  
+
+```scheme
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+```  
+
+Eva demonstrates the program for Alyssa:  
+
+```sceheme
+(new-if (= 2 3) 0 5)
+5
+
+(new-if (= 1 1) 0 5)
+0
+```  
+
+Delighted, Alyssa uses new-if to rewrite the square-root program:  
+
+```sceheme
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x)
+                     x)))
+```
+
+What happens when Alyssa attempts to use this to compute square roots? Explain.  
+Answer:  
+On **application order evalution** we will stuck in infinite loop on calculating `sqrt-iter` when we try to unfold `new-if`. 
