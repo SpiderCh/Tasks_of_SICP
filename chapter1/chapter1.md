@@ -181,4 +181,56 @@ Delighted, Alyssa uses new-if to rewrite the square-root program:
 
 What happens when Alyssa attempts to use this to compute square roots? Explain.  
 Answer:  
-On **application order evalution** we will stuck in infinite loop on calculating `sqrt-iter` when we try to unfold `new-if`. 
+On **application order evalution** we will stuck in infinite loop on calculating `sqrt-iter` when we try to unfold `new-if`.  
+
+### Exercise 1.7  
+The `good-enough?` test used in computing square roots will not be very effective for finding the square roots of very small numbers. Also, in real computers, arithmetic operations are almost always performed with limited precision. This makes our test inadequate for very large numbers. Explain these statements, with examples showing how the test fails for small and large numbers. An alternative strategy for `implementing good-enough?` is to watch how guess changes from one iteration to the next and to stop when the change is a very small fraction of the guess. Design a square-root procedure that uses this kind of end test. Does this work better for small and large numbers?  
+```scheme
+; Answer:
+; Trying to find minimum change between guesses with diff
+
+(define (diff_good_enough? guess previous_guess)
+  (< (abs (- guess previous_guess)) 0.001)
+  )
+
+(define (diff_sqrt_iteration guess previous_guess original)
+  (if (diff_good_enough? guess previous_guess)
+      guess
+      (diff_sqrt_iteration (improve guess original) guess original))
+  )
+
+(define (diff_sqrt x)
+  (diff_sqrt_iteration 1.0 x x)
+  )
+```  
+
+### Exercise 1.8  
+Newton's method for cube roots is based on the fact that if y is an approximation to the cube root of x, then a better approximation is given by the value: ![](assets/ch1-Z-G-5.gif)  
+Use this formula to implement a cube-root procedure analogous to the square-root procedure.  
+```sceheme
+; Answer:
+
+(define (improve guess original)
+  (/ (+ (* guess 2)
+        (/ original (square guess)))
+     3)
+  )
+
+(define (good_enough? guess previous_guess)
+  (< (abs (- previous_guess guess))
+     0.001)
+  )
+
+(define (cube_root_iter guess previous_guess original)
+  (if (good_enough? guess previous_guess)
+      guess
+      (cube_root_iter (improve guess original)
+                       guess
+                       original))
+  )
+
+(define (cube_root x)
+  (cube_root_iter 1.0 x x)
+  )
+
+```

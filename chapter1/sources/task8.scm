@@ -1,6 +1,6 @@
 (define (improve guess original)
   (/ (+ (* guess 2)
-	(/ original (square guess)))
+        (/ original (square guess)))
      3)
   )
 
