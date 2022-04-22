@@ -98,6 +98,7 @@ Translate the following expression into prefix form: ![](assets/ch1-Z-G-3.gif)
 ### Exercise 1.3  
 Define a procedure that takes three numbers as arguments and returns the sum of the squares of the two larger numbers.  
 ```scheme
+;; Answer:
 (define (sum_of_squares x y)
     (define (square x) (* x x))
     (+ (square x) (square y))
@@ -118,4 +119,33 @@ Define a procedure that takes three numbers as arguments and returns the sum of 
     (sum_of_squares (- sum m) (- m (min x y z)))
 )
 
-```
+```  
+### Exercise 1.4  
+Observe that our model of evaluation allows for combinations whose operators are compound expressions. Use this observation to describe the behavior of the following procedure:  
+```scheme
+(define (a-plus-abs-b a b)
+    ((if (> b 0) + -) a b))
+```  
+Answer:  
+Method uses operator according to value of `b`. If `b` greater than `0`, will be used `+` operator for `a` and `b`, otherwise `-` operator.  
+
+### Exercise 1.5  
+Ben Bitdiddle has invented a test to determine whether the interpreter he is faced with is using applicative-order evaluation or normal-order evaluation. He defines the following two procedures:  
+```scheme
+(define (p) (p))
+
+(define (test x y)
+  (if (= x 0)
+      0
+      y))
+```  
+Then he evaluates the expression  
+```sceheme
+(test 0 (p))
+```  
+What behavior will Ben observe with an interpreter that uses applicative-order evaluation? What behavior will he observe with an interpreter that uses normal-order evaluation? Explain your answer. (Assume that the evaluation rule for the special form if is the same whether the interpreter is using normal or applicative order: The predicate expression is evaluated first, and the result determines whether to evaluate the consequent or the alternative expression.)  
+
+Answer:  
+  * [ ] If interpreter uses **application order evalution** we will see infinite loop, because of all arguments must be evaluated before function call
+and we cannot evaluate `y`. To evaluate `y` we must evaluate value of `p`, but `p` defines through `p`.  
+If interpreter uses **normal order evaluation**, test will return `0`, because we do not need to evaluate `y` argument.  
