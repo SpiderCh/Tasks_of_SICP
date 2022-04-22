@@ -58,14 +58,14 @@ Below is a sequence of expressions. What is the result printed by the interprete
       (else 25))
 ;; Answer: 16
 ```
-``` scheme
+```scheme
 (define a 3)
 (define b (+ a 1))
 
 (+ 2 (if (> b a) b a))
 ;; Answer: 6
 ```
-``` scheme
+```scheme
 (define a 3)
 (define b (+ a 1))
 
@@ -140,7 +140,7 @@ Ben Bitdiddle has invented a test to determine whether the interpreter he is fac
       y))
 ```  
 Then he evaluates the expression  
-```sceheme
+```scheme
 (test 0 (p))
 ```  
 What behavior will Ben observe with an interpreter that uses applicative-order evaluation? What behavior will he observe with an interpreter that uses normal-order evaluation? Explain your answer. (Assume that the evaluation rule for the special form if is the same whether the interpreter is using normal or applicative order: The predicate expression is evaluated first, and the result determines whether to evaluate the consequent or the alternative expression.)  
@@ -161,7 +161,7 @@ Alyssa P. Hacker doesn't see why if needs to be provided as a special form. "Why
 
 Eva demonstrates the program for Alyssa:  
 
-```sceheme
+```scheme
 (new-if (= 2 3) 0 5)
 5
 
@@ -171,7 +171,7 @@ Eva demonstrates the program for Alyssa:
 
 Delighted, Alyssa uses new-if to rewrite the square-root program:  
 
-```sceheme
+```scheme
 (define (sqrt-iter guess x)
   (new-if (good-enough? guess x)
           guess
@@ -207,7 +207,7 @@ The `good-enough?` test used in computing square roots will not be very effectiv
 ### Exercise 1.8  
 Newton's method for cube roots is based on the fact that if y is an approximation to the cube root of x, then a better approximation is given by the value: ![](assets/ch1-Z-G-5.gif)  
 Use this formula to implement a cube-root procedure analogous to the square-root procedure.  
-```sceheme
+```scheme
 ; Answer:
 
 (define (improve guess original)
